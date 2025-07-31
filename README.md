@@ -1,4 +1,4 @@
-# Loom Video Downloader
+# Loom Video Downloader (Browser Extension)
 
 Easily download videos hosted by loom.com in one click with this Loom video downloader browser extension.
 

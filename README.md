@@ -2,12 +2,8 @@
 
 Easily download videos hosted by loom.com in one click with this Loom video downloader browser extension.
 
-A browser extension that adds a download button to Skool (`skool.com`) classroom pages to easily download videos for convenient offline viewing.
-
-- Save entire school classrooms and course content for unlimited offline access anytime, anywhere
-- Protect your educational investment by downloading all materials before courses expire or disappear
-- Create a personal library of video lectures, assignments, and resources that you own forever
-- Never lose access to paid courses again - backup everything before platforms shut down or remove content
+- Download loom videos from your account where the DL button was removed
+- Download loom videos embedded on other repos
 
 ![loom video downloader](https://github.com/user-attachments/assets/7428c562-6869-47a4-b8ea-451ef8f3d091)
 
@@ -40,8 +36,6 @@ A browser extension that adds a download button to Skool (`skool.com`) classroom
 - One-click download from any video page
 - 100% privacy-friendly – no tracking or data collection
 - Auto-detect videos on the page
-- Download loom videos from your account where the DL button was removed
-- Download loom videos embedded on other repos
 - Smart Page Scan
 - Embedded Video Support
 - Full HD Downloads

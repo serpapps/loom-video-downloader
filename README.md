@@ -73,7 +73,7 @@ Coming soon...
 ### How to install
 
 1. "Star ⭐" this repository <a href="https://public-files.gumroad.com/fgqglcvq4v0u32yc0x0jvsllk4x6" target="_blank">click the button that looks like this</a>
-2. Download the latest version (`.zip`) from the [Releases](https://github.com/serpapps/vimeo-video-downloader/releases) area
+2. Download the latest version (`.zip`) from the [Releases](https://github.com/serpapps/loom-video-downloader/releases) area
 3. Double click the `.zip` file on your computer to unzip it
 4. Open Chrome and go to `chrome://extensions/`
 5. Enable "developer mode" by clicking the toggle switch on the top right

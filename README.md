@@ -11,8 +11,8 @@ Easily download videos hosted by loom.com in one click with this Loom video down
 
 - 🎁 Get it [here](https://serp.ly/loom-video-downloader)
 - ❓ Check FAQs [here](https://github.com/orgs/serpapps/discussions/categories/faq)
-- 🐛 Report bugs [here](https://github.com/serpapps/skool-downloader/issues)
-- 🆕 Request features [here](https://github.com/serpapps/skool-downloader/issues)
+- 🐛 Report bugs [here](https://github.com/serpapps/loom-video-downloader/issues)
+- 🆕 Request features [here](https://github.com/serpapps/loom-downloader/issues)
 
 ### Resources
 
@@ -70,19 +70,26 @@ Coming soon...
 
 ## Installation Instructions
 
-### Mac
+### How to install
 
-#### How to install
+1. "Star ⭐" this repository <a href="https://public-files.gumroad.com/fgqglcvq4v0u32yc0x0jvsllk4x6" target="_blank">click the button that looks like this</a>
+2. Download the latest version (`.zip`) from the [Releases](https://github.com/serpapps/vimeo-video-downloader/releases) area
+3. Double click the `.zip` file on your computer to unzip it
+4. Open Chrome and go to `chrome://extensions/`
+5. Enable "developer mode" by clicking the toggle switch on the top right
+6. Install the 'extension' by clicking "Load unpacked" and choosing the 'extension folder' on your computer (the FOLDER, not the .zip)
+7. Pin the extension to chrome by clicking the puzzle looking icon thing and then the 'pin' icon
+8. When you click on the extension for the first time, you will need to enter your `email` & `license key` associated with the extension
 
-Coming soon...
+> Note: You can find your license key in your email confirmation from purchasing the product
 
-#### How to use
+### How to use
 
-Coming soon...
+1. Navigate to a page where there is a Loom video & click on the extension to see the video details populate
+2. Click the "Download" button
 
-### Windows
+> Note: If the video auto-discovery isn't working, try clicking PLAY on the loom video (sometimes that helps)
 
-#### How to install & setup
 
 <br><br><br>
 
@@ -94,65 +101,41 @@ Coming soon...
 This extension allows users to download Loom videos directly from the Loom website to their local computer with a single click, making it easy to save and access videos offline.
 
 
-
 ### downloads justification  
 The "downloads" permission is required to save Loom videos from the web directly to the user's computer. Without this, the extension would not be able to transfer video files to the user’s local storage.
-
-
 
 ### activeTab justification  
 The "activeTab" permission is necessary to interact with the Loom website that the user is currently viewing. It enables the extension to detect and download videos only when the user activates the extension on an appropriate tab.
 
-
-
 ### storage justification  
 The "storage" permission is used to save user preferences and extension settings locally. This ensures a smooth and personalized user experience each time the extension is used.
-
-
 
 ### notifications justification  
 The "notifications" permission is used to inform users when a video download has started, completed, or if there is an error during the process. This keeps users updated about the status of their downloads.
 
-
-
 ### contextMenus justification  
 The "contextMenus" permission allows the extension to add options to the right-click menu, making it more convenient for users to download Loom videos directly from the context menu without having to use the main extension popup.
-
-
 
 ### clipboardRead justification  
 The "clipboardRead" permission may be used to allow users to quickly paste Loom video URLs from their clipboard into the extension for downloading, streamlining the user workflow.
 
-
-
 ### tabs justification  
 The "tabs" permission is required to access information about the user's open tabs, such as the current URL, to ensure the extension only operates on Loom video pages and manages downloads efficiently.
-
-
 
 ### scripting justification  
 The "scripting" permission allows the extension to execute scripts on Loom pages to detect video elements and facilitate the download functionality.
 
-
-
 ### offscreen justification  
 The "offscreen" permission is used to process video files in the background, ensuring that downloads can be completed smoothly without interrupting the user’s browsing experience.
-
-
 
 ### cookies justification  
 The "cookies" permission may be required to access authentication cookies for Loom, ensuring the extension can download videos that may require the user to be logged in.
 
-
-
 ### webNavigation justification  
 The "webNavigation" permission helps the extension monitor navigation to Loom video pages, enabling it to offer download functionality only when appropriate.
 
-
-
 ### Host permission justification
-Host permissions are requested for loom.com and its subdomains to enable the extension to detect and download Loom videos directly from the Loom website. No other hosts are accessed.
-
+Host permissions are requested for loom.com and its subdomains to enable the extension to detect and download Loom videos directly from the Loom website. No other hosts are accessed
 
 
 ### Remote code justification  

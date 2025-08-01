@@ -3,7 +3,7 @@
 Easily download videos hosted by loom.com in one click with this Loom video downloader browser extension.
 
 - Download loom videos from your account where the DL button was removed
-- Download loom videos embedded on other repos
+- Download loom videos embedded on other web pages
 
 ![loom video downloader](https://github.com/user-attachments/assets/7428c562-6869-47a4-b8ea-451ef8f3d091)
 

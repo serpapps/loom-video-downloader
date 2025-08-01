@@ -84,8 +84,74 @@ Coming soon...
 
 #### How to install & setup
 
-Coming soon...
 
-#### How to use
+## Permissions Justifications
 
-Coming soon...
+### Single purpose description  
+This extension allows users to download Loom videos directly from the Loom website to their local computer with a single click, making it easy to save and access videos offline.
+
+
+
+### downloads justification  
+The "downloads" permission is required to save Loom videos from the web directly to the user's computer. Without this, the extension would not be able to transfer video files to the user’s local storage.
+
+
+
+### activeTab justification  
+The "activeTab" permission is necessary to interact with the Loom website that the user is currently viewing. It enables the extension to detect and download videos only when the user activates the extension on an appropriate tab.
+
+
+
+### storage justification  
+The "storage" permission is used to save user preferences and extension settings locally. This ensures a smooth and personalized user experience each time the extension is used.
+
+
+
+### notifications justification  
+The "notifications" permission is used to inform users when a video download has started, completed, or if there is an error during the process. This keeps users updated about the status of their downloads.
+
+
+
+### contextMenus justification  
+The "contextMenus" permission allows the extension to add options to the right-click menu, making it more convenient for users to download Loom videos directly from the context menu without having to use the main extension popup.
+
+
+
+### clipboardRead justification  
+The "clipboardRead" permission may be used to allow users to quickly paste Loom video URLs from their clipboard into the extension for downloading, streamlining the user workflow.
+
+
+
+### tabs justification  
+The "tabs" permission is required to access information about the user's open tabs, such as the current URL, to ensure the extension only operates on Loom video pages and manages downloads efficiently.
+
+
+
+### scripting justification  
+The "scripting" permission allows the extension to execute scripts on Loom pages to detect video elements and facilitate the download functionality.
+
+
+
+### offscreen justification  
+The "offscreen" permission is used to process video files in the background, ensuring that downloads can be completed smoothly without interrupting the user’s browsing experience.
+
+
+
+### cookies justification  
+The "cookies" permission may be required to access authentication cookies for Loom, ensuring the extension can download videos that may require the user to be logged in.
+
+
+
+### webNavigation justification  
+The "webNavigation" permission helps the extension monitor navigation to Loom video pages, enabling it to offer download functionality only when appropriate.
+
+
+
+### Host permission justification
+Host permissions are requested for loom.com and its subdomains to enable the extension to detect and download Loom videos directly from the Loom website. No other hosts are accessed.
+
+
+
+### Remote code justification  
+No, I am not using Remote code. All code is packaged within the extension and does not execute any external scripts or resources.
+

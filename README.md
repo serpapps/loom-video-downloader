@@ -58,8 +58,6 @@ Easily download videos hosted by loom.com in one click with this Loom video down
 <br><br>
 ![loom-downloader-screenshot-2](https://github.com/user-attachments/assets/8114d5e2-6ef0-4ac2-b632-0e87594a822c)
 <br><br>
-![loom-downloader-screenshot-3](https://github.com/user-attachments/assets/ff459859-0b54-4a45-a679-9456f380861e)
-<br><br>
 
 ## Videos
 

@@ -1,3 +1,8 @@
+---
+title: Loom Video Downloader | How to Download Loom Videos Even if You Have a Free Account
+
+---
+
 # Loom Video Downloader (Browser Extension)
 
 Easily download videos hosted by loom.com in one click with this Loom video downloader browser extension.

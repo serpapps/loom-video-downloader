@@ -1,4 +1,4 @@
-name: call-comment-on-gist.yml
+name: call-comment-on-gist
 
 on:
   workflow_dispatch:

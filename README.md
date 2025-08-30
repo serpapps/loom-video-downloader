@@ -3,6 +3,8 @@ title: Loom Video Downloader | How to Download Loom Videos Even if You Have a Fr
 
 ---
 
+
+
 # Loom Video Downloader (Browser Extension)
 
 Easily download videos hosted by loom.com in one click with this Loom video downloader browser extension.
@@ -10,7 +12,7 @@ Easily download videos hosted by loom.com in one click with this Loom video down
 - Download loom videos from your account where the DL button was removed
 - Download loom videos embedded on other web pages
 
-![loom video downloader](https://github-production-user-asset-6210df.s3.amazonaws.com/45643901/473001953-7428c562-6869-47a4-b8ea-451ef8f3d091.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250813%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250813T010120Z&X-Amz-Expires=300&X-Amz-Signature=cd7661a21990a5faaf108ac027be305949e50e5011dd1cfc93b36feb6695adc9&X-Amz-SignedHeaders=host)
+![loom video downloader](https://raw.githubusercontent.com/serpapps/loom-video-downloader/refs/heads/assets/images/loom-video-downloader.gif)
 
 ## 🔗 Links
 
@@ -56,13 +58,9 @@ Easily download videos hosted by loom.com in one click with this Loom video down
   
 ---
 
-## Screenshots
+<!-- ## Screenshots -->
 
-<br><br>
-![loom-downloader-screenshot-1](https://github-production-user-asset-6210df.s3.amazonaws.com/45643901/473279380-a64edf75-7ad3-4d37-b2ff-552bad5d9139.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250813%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250813T010128Z&X-Amz-Expires=300&X-Amz-Signature=56c8b192a1a0679f719b3f9c7bca94b2ccaea72dfa86308f3bcd3246496ac480&X-Amz-SignedHeaders=host)
-<br><br>
-![loom-downloader-screenshot-2]([https://github.com/user-attachments/assets/8114d5e2-6ef0-4ac2-b632-0e87594a822c](https://github-production-user-asset-6210df.s3.amazonaws.com/45643901/473279401-8114d5e2-6ef0-4ac2-b632-0e87594a822c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250813%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250813T010133Z&X-Amz-Expires=300&X-Amz-Signature=fc095da74c8114fc6ae8e6c333cffbb08a721510fad90d0619d60dae6cdb6d39&X-Amz-SignedHeaders=host))
-<br><br>
+
 
 ## Videos
 

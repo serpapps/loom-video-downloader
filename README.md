@@ -4,8 +4,7 @@ title: Loom Video Downloader | How to Download Loom Videos Even if You Have a Fr
 ---
 
 
-
-# Loom Video Downloader (Browser Extension)
+# Loom Video Downloader App (Browser Extension for Chrome & Firefox)
 
 Easily download videos hosted by loom.com in one click with this Loom video downloader browser extension.
 
@@ -64,7 +63,10 @@ Easily download videos hosted by loom.com in one click with this Loom video down
 
 ## Videos
 
-[![Video Thumbnail](https://raw.githubusercontent.com/devinschumacher/uploads/refs/heads/main/images/loom-video-downloader-installation-and-use-instructions-how-to-download-loom-videos.jpg)](https://www.youtube.com/watch?v=bbkhxMpIH4w)
+
+<a href="https://www.youtube.com/watch?v=bbkhxMpIH4w" target="_blank">
+  <img src="https://raw.githubusercontent.com/devinschumacher/uploads/refs/heads/main/images/loom-video-downloader-installation-and-use-instructions-how-to-download-loom-videos.jpg"/>
+</a>
 
 
 ---

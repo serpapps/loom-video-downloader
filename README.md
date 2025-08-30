@@ -59,10 +59,7 @@ Easily download videos hosted by loom.com in one click with this Loom video down
 
 <!-- ## Screenshots -->
 
-
-
 ## Videos
-
 
 <a href="https://www.youtube.com/watch?v=bbkhxMpIH4w" target="_blank">
   <img src="https://raw.githubusercontent.com/devinschumacher/uploads/refs/heads/main/images/loom-video-downloader-installation-and-use-instructions-how-to-download-loom-videos.jpg"/>

@@ -66,6 +66,11 @@ Easily download videos hosted by loom.com on any website in just a click for con
 </a>
 
 
+<a href="https://www.youtube.com/watch?v=EY8549tG34c" target="_blank">
+<img src="https://raw.githubusercontent.com/devinschumacher/uploads/refs/heads/main/images/how-to-download-loom-videos-for-free-without-a-loom-subscription-mp4-video-embed-example.jpg" width="700px">
+</a>
+
+
 ---
 
 ## Installation Instructions

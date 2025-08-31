@@ -6,7 +6,7 @@ title: Loom Video Downloader | How to Download Loom Videos Even if You Have a Fr
 
 # Loom Video Downloader App (Browser Extension for Chrome & Firefox)
 
-Easily download videos hosted by loom.com in one click with this Loom video downloader browser extension.
+Easily download videos hosted by loom.com on any website in just a click for conenient offline viewing with this Loom video downloader browser extension.
 
 - Download loom videos from your account where the DL button was removed
 - Download loom videos embedded on other web pages

@@ -1,0 +1,106 @@
+{
+  "id": 38,
+  "created_at": "2025-01-23T00:00:00Z",
+  "seo_title": "Skool Video Downloader - Download Skool Videos for Offline Viewing",
+  "seo_description": "A browser extension that adds a download button to Skool (skool.com) classroom pages to easily download videos for convenient offline viewing.",
+  "product_page_url": "https://store.serp.co/product-details/product/skool-video-downloader",
+  "purchase_url": "https://serp.ly/skool-video-downloader-extension",
+  "store_product_id": null,
+  "name": "Skool Video Downloader",
+  "tagline": "A browser extension that adds a download button to Skool classroom pages to easily download videos for convenient offline viewing",
+  "featured_image": "https://github.com/user-attachments/assets/0b750532-0dd0-4768-a8c4-489b4e92c1c6",
+  "featured_image_gif": "https://github.com/user-attachments/assets/0b750532-0dd0-4768-a8c4-489b4e92c1c6",
+  "github_repo_url": "https://github.com/serpapps/skool-downloader",
+  "github_repo_tags": [
+    "skool-downloader",
+    "skool-video-downloader",
+    "video-downloader",
+    "browser-extension"
+  ],
+  "github_gist_url": null,
+  "features": [
+    "One-click download from any video page",
+    "100% privacy-friendly – no tracking or data collection",
+    "Auto-detect videos on the page",
+    "Floating download button",
+    "Multi-platform video support (Wistia, Loom, Vimeo, YouTube)",
+    "Universal page support (classrooms, community posts, about pages)",
+    "Enhanced video detection",
+    "1-on-1 support via community"
+  ],
+  "chrome_web_store_url": null,
+  "description": "Skool Video Downloader is a browser extension that enables you to download videos from Skool.com classroom pages. Save entire school classrooms and course content for unlimited offline access anytime, anywhere. Protect your educational investment by downloading all materials before courses expire or disappear. Create a personal library of video lectures, assignments, and resources that you own forever.",
+  "product_video": "https://www.youtube.com/watch?v=YBBSkdb1YAw",
+  "related_videos": [
+    "https://www.youtube.com/watch?v=YBBSkdb1YAw",
+    "https://www.youtube.com/watch?v=WRSzeFI_Q7g",
+    "https://www.youtube.com/watch?v=J9eetd89HZk"
+  ],
+  "changelog": "https://github.com/serpapps/skool-downloader/releases",
+  "version_number": 2,
+  "updated_at": "2025-01-23T00:00:00Z",
+  "troubleshooting_instructions": [
+    "Visit the skool.com page where you want to download the video ('refresh' the page if needed)",
+    "Wait a second or two for the video to load (Click the video on the page if needed)",
+    "Make sure you are logged into your Skool account if accessing private content"
+  ],
+  "installation_instructions": "Each release now has its own specific installation instructions to make it easier to upgrade, or rollback, to different versions. You can find the installation instructions for the specific version in the release: https://github.com/serpapps/skool-downloader/releases",
+  "usage_instructions": [
+    "Visit the skool.com page where you want to download the video ('refresh' the page if needed)",
+    "Click the extension icon in your browser",
+    "Wait a second or two for the video to load (Click the video on the page if needed)",
+    "Click \"Download video\""
+  ],
+  "faqs": "https://github.com/orgs/serpapps/discussions/categories/faq",
+  "supported_operating_systems": [
+    "windows",
+    "macos",
+    "linux"
+  ],
+  "status": "live",
+  "technologies": [
+    "JavaScript",
+    "Browser Extension",
+    "Chrome Extension API",
+    "Firefox WebExtensions"
+  ],
+  "serpco_product_page_link": "https://serp.co/products/skool-video-downloader/reviews/",
+  "serpai_product_page_link": "https://serp.ai/products/skool-video-downloader/reviews/",
+  "file_formats": [
+    "MP4"
+  ],
+  "categories": [
+    "course marketplace",
+    "video downloader",
+    "browser extension"
+  ],
+  "extraction_targets": [
+    "skool.com"
+  ],
+  "content_medium": "video",
+  "discovery_source": null,
+  "related_articles": null,
+  "related_gists": null,
+  "funding_links_github": [
+    "devinschumacher"
+  ],
+  "funding_links_liberapay": [
+    "devinschumacher"
+  ],
+  "funding_links_opencollective": [
+    "devinschumacher"
+  ],
+  "funding_links_custom": [
+    "https://serpapps.github.io/skool-downloader",
+    "https://devinschumacher.com/skool-downloader",
+    "https://serp.co/products/skool-video-downloader/",
+    "https://github.com/sponsors/devinschumacher"
+  ],
+  "keywords": [
+    "skool video downloader",
+    "skool downloader",
+    "video downloader",
+    "browser extension",
+    "course downloader"
+  ]
+}

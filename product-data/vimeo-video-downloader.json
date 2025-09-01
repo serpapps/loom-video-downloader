@@ -1,0 +1,114 @@
+{
+  "id": 39,
+  "created_at": "2025-01-23T00:00:00Z",
+  "seo_title": "Vimeo Video Downloader - Download Vimeo Videos for Offline Viewing",
+  "seo_description": "Download Vimeo videos to your computer for offline watching from any webpage with this browser extension. Fast downloads with original quality preserved up to 4K.",
+  "product_page_url": "https://store.serp.co/product-details/product/vimeo-video-downloader",
+  "purchase_url": "https://serp.ly/vimeo-video-downloader",
+  "store_product_id": null,
+  "name": "Vimeo Video Downloader",
+  "tagline": "Download Vimeo videos to your computer for offline watching from any webpage with this browser extension",
+  "featured_image": "https://github.com/user-attachments/assets/428ebb22-950e-4aaf-a9b0-065313273b48",
+  "featured_image_gif": "https://github.com/user-attachments/assets/428ebb22-950e-4aaf-a9b0-065313273b48",
+  "github_repo_url": "https://github.com/serpapps/vimeo-video-downloader",
+  "github_repo_tags": [
+    "vimeo-video-downloader",
+    "vimeo-downloader",
+    "video-downloader",
+    "browser-extension"
+  ],
+  "github_gist_url": null,
+  "features": [
+    "Works Everywhere",
+    "Privacy Focus",
+    "Auto-detect Videos",
+    "Smart Page Scan",
+    "Embedded Video Support",
+    "Full HD Downloads",
+    "Fast downloads (no re-encoding)",
+    "Original quality preserved (up to 4K)",
+    "No data tracking",
+    "No watermarks or branding added",
+    "Community Support",
+    "Bug Reporting",
+    "Zero Ads",
+    "Regular Updates",
+    "Thumbnail Preview",
+    "Minimal Permissions",
+    "Download Progress Bar"
+  ],
+  "chrome_web_store_url": null,
+  "description": "Vimeo Video Downloader is a browser extension that allows you to download Vimeo videos to your computer for offline watching from any webpage. Perfect for content creators backing up their portfolio, educators saving lectures and tutorials, professionals downloading training materials, and anyone wanting offline access to their favorite videos. Solves problems like paid courses disappearing, videos buffering on slow internet, and private video links expiring.",
+  "product_video": "https://www.youtube.com/watch?v=-_zu7XgFuKs",
+  "related_videos": [
+    "https://www.youtube.com/watch?v=-_zu7XgFuKs",
+    "https://www.youtube.com/watch?v=MeLNJSwCnwk",
+    "https://www.youtube.com/watch?v=ZnoC6IZg4s4"
+  ],
+  "changelog": "https://github.com/serpapps/vimeo-video-downloader/releases",
+  "version_number": 1,
+  "updated_at": "2025-01-23T00:00:00Z",
+  "troubleshooting_instructions": [
+    "Make sure you are on a page with Vimeo videos",
+    "Check that the extension is enabled and pinned to your browser",
+    "Refresh the page if video detection is not working",
+    "Ensure you have proper permissions to download the video"
+  ],
+  "installation_instructions": "1. Star ⭐ this repository\n2. Download the latest .zip file from Releases\n3. Extract the ZIP file (aka double click it)\n4. Open Chrome and go to chrome://extensions/\n5. Enable \"Developer mode\" (top right toggle)\n6. Click \"Load unpacked\" (top left button) and select the extracted folder\n7. When you click on the extension for the first time, you will need to enter your email & license key associated with the extension",
+  "usage_instructions": [
+    "Navigate to a Vimeo video page",
+    "Click the extension icon in your browser",
+    "Wait for video detection",
+    "Click the download button to save the video to your computer"
+  ],
+  "faqs": "https://github.com/orgs/serpapps/discussions/categories/faq",
+  "supported_operating_systems": [
+    "windows",
+    "macos",
+    "linux"
+  ],
+  "status": "live",
+  "technologies": [
+    "JavaScript",
+    "Browser Extension",
+    "Chrome Extension API",
+    "Firefox WebExtensions"
+  ],
+  "serpco_product_page_link": "https://serp.co/products/vimeo-video-downloader/reviews/",
+  "serpai_product_page_link": "https://serp.ai/products/vimeo-video-downloader/reviews/",
+  "file_formats": [
+    "MP4"
+  ],
+  "categories": [
+    "video downloader",
+    "browser extension"
+  ],
+  "extraction_targets": [
+    "vimeo.com"
+  ],
+  "content_medium": "video",
+  "discovery_source": null,
+  "related_articles": null,
+  "related_gists": null,
+  "funding_links_github": [
+    "devinschumacher"
+  ],
+  "funding_links_liberapay": [
+    "devinschumacher"
+  ],
+  "funding_links_opencollective": [
+    "devinschumacher"
+  ],
+  "funding_links_custom": [
+    "https://serpapps.github.io/vimeo-video-downloader",
+    "https://devinschumacher.com/vimeo-video-downloader",
+    "https://serp.co/products/vimeo-video-downloader/",
+    "https://github.com/sponsors/devinschumacher"
+  ],
+  "keywords": [
+    "vimeo video downloader",
+    "vimeo downloader",
+    "video downloader",
+    "browser extension"
+  ]
+}

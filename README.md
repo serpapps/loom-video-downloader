@@ -94,10 +94,6 @@ Easily download videos hosted by loom.com in one click with this Loom video down
 
 <br><br><br>
 
-<details>
-  <summary>
-## Permissions Justifications
-</summary>
 ### Single purpose description  
 This extension allows users to download Loom videos directly from the Loom website to their local computer with a single click, making it easy to save and access videos offline.
 
@@ -142,7 +138,3 @@ Host permissions are requested for loom.com and its subdomains to enable the ext
 ### Remote code justification  
 No, I am not using Remote code. All code is packaged within the extension and does not execute any external scripts or resources.
 
-
-
-
-</details>

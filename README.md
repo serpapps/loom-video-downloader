@@ -58,11 +58,9 @@ Easily download videos hosted by loom.com in one click with this Loom video down
 
 ## Screenshots
 
-<br><br>
-![loom-downloader-screenshot-1](https://github-production-user-asset-6210df.s3.amazonaws.com/45643901/473279380-a64edf75-7ad3-4d37-b2ff-552bad5d9139.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250813%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250813T010128Z&X-Amz-Expires=300&X-Amz-Signature=56c8b192a1a0679f719b3f9c7bca94b2ccaea72dfa86308f3bcd3246496ac480&X-Amz-SignedHeaders=host)
-<br><br>
-![loom-downloader-screenshot-2]([https://github.com/user-attachments/assets/8114d5e2-6ef0-4ac2-b632-0e87594a822c](https://github-production-user-asset-6210df.s3.amazonaws.com/45643901/473279401-8114d5e2-6ef0-4ac2-b632-0e87594a822c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20250813%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250813T010133Z&X-Amz-Expires=300&X-Amz-Signature=fc095da74c8114fc6ae8e6c333cffbb08a721510fad90d0619d60dae6cdb6d39&X-Amz-SignedHeaders=host))
-<br><br>
+<img src="https://raw.githubusercontent.com/serpapps/loom-video-downloader/refs/heads/assets/screenshots/loom-downloader-screenshot-1.jpg" width="700"  alt="Loom Downloader Screenshot 1">
+<img src="https://raw.githubusercontent.com/serpapps/loom-video-downloader/refs/heads/assets/screenshots/loom-downloader-screenshot-2.jpg" width="700" alt="Loom Downloader Screenshot 2">
+<img src="https://raw.githubusercontent.com/serpapps/loom-video-downloader/refs/heads/assets/screenshots/loom-downloader-screenshot-3.jpg" width="700" alt="Loom Downloader Screenshot 3">
 
 ## Videos
 

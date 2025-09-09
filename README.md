@@ -71,6 +71,27 @@ Easily download videos hosted by loom.com on any website in just a click for con
 </a>
 
 
+<a href="https://www.youtube.com/watch?v=4MnyU0kPxlE" target="_blank">
+<img src="https://raw.githubusercontent.com/devinschumacher/uploads/refs/heads/main/images/how-to-download-loom-videos-for-free-dl-without-subscription-10-examples-mp4-hls-m3u8.jpg" width="700px">
+</a>
+
+<br><br>
+00:00 Introduction and Loom Free Plan Limitations  
+01:00 Why You Can't Download After Downgrade  
+01:28 Tool You Need: YT-DLP Setup  
+02:35 How to Find Loom Video URLs  
+03:47 Checking Available File Formats  
+05:12 How to Download with YT-DLP  
+07:20 Handling WebM and Forcing MP4  
+09:18 Downloading from Embedded Loom Videos  
+11:20 Stitching Audio and Video Streams  
+12:40 Choosing Resolution and Subtitles  
+14:30 Exporting VTT Subtitles for AI Use  
+15:01 Wrap Up and Final Tips  
+
+
+
+
 ---
 
 ## Installation Instructions

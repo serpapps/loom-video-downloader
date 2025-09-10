@@ -13,10 +13,12 @@ Easily download videos hosted by loom.com on any website in just a click for con
 
 ![loom video downloader](https://raw.githubusercontent.com/serpapps/loom-video-downloader/refs/heads/assets/images/loom-video-downloader.gif)
 
+> **💡 Looking for your original Copilot request?** If you're trying to find the initial request you made to GitHub Copilot that created a PR, check out our [FAQ section](FAQ.md#q-where-do-i-find-the-initial-full-request-that-i-made-to-copilot-with-the-instructions-for-this-pr) for detailed guidance on where to locate your original instructions.
+
 ## 🔗 Links
 
 - 🎁 Get it [here](https://serp.ly/loom-video-downloader)
-- ❓ Check FAQs [here](https://github.com/orgs/serpapps/discussions/categories/faq)
+- ❓ Check FAQs [here](FAQ.md) | [Community FAQs](https://github.com/orgs/serpapps/discussions/categories/faq)
 - 🐛 Report bugs [here](https://github.com/serpapps/loom-video-downloader/issues)
 - 🆕 Request features [here](https://github.com/serpapps/loom-downloader/issues)
 
@@ -37,6 +39,8 @@ Easily download videos hosted by loom.com on any website in just a click for con
   - [How to use (MAC)](#how-to-use-mac)
 - [How to install \& setup (Windows)](#how-to-install--setup-windows)
 - [How to use (Windows)](#how-to-use-windows)
+- [FAQ](FAQ.md) - Frequently Asked Questions
+- [Technical Documentation](CONTRIBUTING.md) - Advanced usage and troubleshooting
 
 ## Features
 

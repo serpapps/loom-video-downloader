@@ -704,114 +704,210 @@ select_quality() {
 
 ### 8.2 Error Handling and Resilience
 
-#### 8.2.1 Comprehensive Error Handling
-```python
-import time
-import random
-
-class ResilientDownloader:
-    def __init__(self, max_retries=3, base_delay=1):
-        self.max_retries = max_retries
-        self.base_delay = base_delay
+#### 8.2.1 Retry Commands with Backoff
+```bash
+# Download with retries and exponential backoff
+download_with_retries() {
+    local url="$1"
+    local max_retries=3
+    local delay=1
     
-    def download_with_retries(self, url, method):
-        for attempt in range(self.max_retries):
-            try:
-                return method(url)
-            except requests.exceptions.ConnectionError:
-                if attempt < self.max_retries - 1:
-                    delay = self.base_delay * (2 ** attempt) + random.uniform(0, 1)
-                    time.sleep(delay)
-                else:
-                    raise
-            except requests.exceptions.HTTPError as e:
-                if e.response.status_code == 429:  # Rate limited
-                    time.sleep(60)
-                    continue
-                elif e.response.status_code in [403, 404]:
-                    raise  # Don't retry on client errors
-                else:
-                    continue
+    for i in $(seq 1 $max_retries); do
+        if yt-dlp --retries 2 "$url"; then
+            return 0
+        fi
+        
+        echo "Attempt $i failed, waiting ${delay}s..."
+        sleep $delay
+        delay=$((delay * 2))
+    done
+    
+    return 1
+}
+
+# Check URL accessibility before download
+check_url_status() {
+    local url="$1"
+    
+    # Test direct access
+    if curl -I --max-time 10 "$url" | grep -q "200 OK"; then
+        echo "URL accessible"
+        return 0
+    fi
+    
+    # Test with different user agent
+    if curl -I --max-time 10 -H "User-Agent: Mozilla/5.0 (compatible; Loom-Downloader)" "$url" | grep -q "200 OK"; then
+        echo "URL accessible with custom user agent"
+        return 0
+    fi
+    
+    echo "URL not accessible"
+    return 1
+}
+
+# Handle rate limiting
+handle_rate_limit() {
+    local url="$1"
+    
+    # Download with rate limiting
+    yt-dlp --limit-rate 1M --retries 5 --fragment-retries 3 "$url"
+    
+    # If rate limited, wait and retry
+    if [ $? -eq 1 ]; then
+        echo "Rate limited, waiting 60 seconds..."
+        sleep 60
+        yt-dlp --limit-rate 500K "$url"
+    fi
+}
 ```
 
-#### 8.2.2 Fallback URL Strategy
-```python
-def construct_fallback_urls(video_id, quality='720'):
-    """Generate multiple URL options for resilience"""
-    base_patterns = [
-        "https://cdn.loom.com/sessions/{}/transcoded/mp4/{}/video.mp4",
-        "https://d2eebagvwr542c.cloudfront.net/sessions/{}/transcoded/mp4/{}/video.mp4",
-        "https://cdn-cf.loom.com/sessions/{}/transcoded/mp4/{}/video.mp4"
-    ]
+#### 8.2.2 Fallback URL Testing
+```bash
+# Test multiple CDN endpoints
+test_fallback_urls() {
+    local video_id="$1"
+    local quality="${2:-720}"
     
-    urls = []
-    for pattern in base_patterns:
-        urls.append(pattern.format(video_id, quality))
+    local urls=(
+        "https://cdn.loom.com/sessions/$video_id/transcoded/mp4/$quality/video.mp4"
+        "https://d2eebagvwr542c.cloudfront.net/sessions/$video_id/transcoded/mp4/$quality/video.mp4"
+        "https://cdn-cf.loom.com/sessions/$video_id/transcoded/mp4/$quality/video.mp4"
+        "https://cdn.loom.com/sessions/$video_id/transcoded/hls/master.m3u8"
+    )
     
-    # Add HLS fallback
-    urls.append(f"https://cdn.loom.com/sessions/{video_id}/transcoded/hls/master.m3u8")
+    for url in "${urls[@]}"; do
+        echo "Testing: $url"
+        if curl -I --max-time 5 "$url" | grep -q "200\|302"; then
+            echo "✓ Available: $url"
+        else
+            echo "✗ Failed: $url"
+        fi
+    done
+}
+
+# Download with automatic fallback
+download_with_fallback() {
+    local video_id="$1"
+    local quality="${2:-720}"
+    local output_dir="${3:-./downloads}"
     
-    return urls
+    # Try primary CDN first
+    if yt-dlp "https://www.loom.com/share/$video_id"; then
+        return 0
+    fi
+    
+    # Try direct MP4 URLs
+    local urls=(
+        "https://cdn.loom.com/sessions/$video_id/transcoded/mp4/$quality/video.mp4"
+        "https://d2eebagvwr542c.cloudfront.net/sessions/$video_id/transcoded/mp4/$quality/video.mp4"
+        "https://cdn-cf.loom.com/sessions/$video_id/transcoded/mp4/$quality/video.mp4"
+    )
+    
+    for url in "${urls[@]}"; do
+        if wget -O "$output_dir/loom_$video_id.mp4" "$url"; then
+            echo "✓ Downloaded from: $url"
+            return 0
+        fi
+    done
+    
+    # Try HLS as last resort
+    ffmpeg -i "https://cdn.loom.com/sessions/$video_id/transcoded/hls/master.m3u8" -c copy "$output_dir/loom_$video_id.mp4"
+}
 ```
 
 ### 8.3 Performance Optimization
 
-#### 8.3.1 Parallel Processing
-```python
-import concurrent.futures
-import threading
-
-class ParallelDownloader:
-    def __init__(self, max_workers=4):
-        self.max_workers = max_workers
-        self.download_queue = []
-        self.progress_lock = threading.Lock()
+#### 8.3.1 Parallel Batch Processing
+```bash
+# Download multiple videos in parallel
+download_batch_parallel() {
+    local url_file="$1"
+    local max_jobs="${2:-4}"
+    local output_dir="${3:-./downloads}"
     
-    def download_batch(self, video_urls):
-        with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-            future_to_url = {
-                executor.submit(self.download_single, url): url 
-                for url in video_urls
-            }
-            
-            results = {}
-            for future in concurrent.futures.as_completed(future_to_url):
-                url = future_to_url[future]
-                try:
-                    results[url] = future.result()
-                except Exception as e:
-                    results[url] = f"Failed: {e}"
-            
-            return results
+    # Using GNU parallel
+    parallel -j $max_jobs yt-dlp -o "$output_dir/%(title)s.%(ext)s" {} :::: "$url_file"
+}
+
+# Alternative using xargs
+download_batch_xargs() {
+    local url_file="$1"
+    local max_jobs="${2:-4}"
+    local output_dir="${3:-./downloads}"
+    
+    cat "$url_file" | xargs -P $max_jobs -I {} yt-dlp -o "$output_dir/%(title)s.%(ext)s" {}
+}
+
+# Process multiple videos with progress
+batch_download_with_logging() {
+    local url_file="$1"
+    local log_file="downloads.log"
+    
+    total_count=$(wc -l < "$url_file")
+    current=0
+    
+    while IFS= read -r url; do
+        ((current++))
+        echo "[$current/$total_count] Processing: $url" | tee -a "$log_file"
+        
+        if yt-dlp "$url" 2>&1 | tee -a "$log_file"; then
+            echo "✓ Success" | tee -a "$log_file"
+        else
+            echo "✗ Failed" | tee -a "$log_file"
+        fi
+    done < "$url_file"
+}
 ```
 
-#### 8.3.2 Progress Tracking
-```python
-class ProgressTracker:
-    def __init__(self):
-        self.total_size = 0
-        self.downloaded = 0
-        self.callbacks = []
+#### 8.3.2 Progress Monitoring
+```bash
+# Download with progress monitoring
+download_with_progress() {
+    local url="$1"
+    local output_file="$2"
     
-    def add_callback(self, callback):
-        self.callbacks.append(callback)
+    # Using yt-dlp with progress hooks
+    yt-dlp --newline --progress-template "download:%(progress._percent_str)s %(progress._speed_str)s ETA %(progress._eta_str)s" -o "$output_file" "$url"
+}
+
+# Monitor download speed and adjust
+monitor_download_speed() {
+    local url="$1"
     
-    def update_progress(self, chunk_size):
-        self.downloaded += chunk_size
-        progress = (self.downloaded / self.total_size) * 100 if self.total_size > 0 else 0
-        
-        for callback in self.callbacks:
-            callback(progress, self.downloaded, self.total_size)
+    # Test connection speed first
+    local test_speed=$(curl -w "%{speed_download}" -o /dev/null -s "$url" | head -c 10)
     
-    def download_with_progress(self, url, output_path):
-        response = requests.get(url, stream=True)
-        self.total_size = int(response.headers.get('content-length', 0))
-        
-        with open(output_path, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                if chunk:
-                    f.write(chunk)
-                    self.update_progress(len(chunk))
+    if (( $(echo "$test_speed < 1000000" | bc -l) )); then
+        echo "Slow connection detected, using rate limiting"
+        yt-dlp --limit-rate 500K "$url"
+    else
+        echo "Good connection, downloading at full speed"
+        yt-dlp "$url"
+    fi
+}
+
+# Real-time progress with file size monitoring
+track_download_progress() {
+    local url="$1"
+    local output_file="$2"
+    
+    # Start download in background
+    yt-dlp -o "$output_file" "$url" &
+    local download_pid=$!
+    
+    # Monitor file size growth
+    while kill -0 $download_pid 2>/dev/null; do
+        if [ -f "$output_file" ]; then
+            local size=$(du -h "$output_file" 2>/dev/null | cut -f1)
+            echo -ne "\rDownloaded: $size"
+        fi
+        sleep 2
+    done
+    echo ""
+    
+    wait $download_pid
+    return $?
+}
 ```
 
 ### 8.4 Integration Best Practices
@@ -843,34 +939,84 @@ loom_downloader:
     ffmpeg_path: "/usr/local/bin/ffmpeg"
 ```
 
-#### 8.4.2 Logging and Monitoring
-```python
-import logging
-import json
-from datetime import datetime
+#### 8.4.2 Logging and Monitoring Commands
+```bash
+# Setup logging directory and files
+setup_logging() {
+    local log_dir="./logs"
+    mkdir -p "$log_dir"
+    
+    # Create log files with timestamps
+    local date_stamp=$(date +"%Y%m%d")
+    export DOWNLOAD_LOG="$log_dir/downloads_$date_stamp.log"
+    export ERROR_LOG="$log_dir/errors_$date_stamp.log"
+    export STATS_LOG="$log_dir/stats_$date_stamp.log"
+}
 
-class DownloadLogger:
-    def __init__(self, log_file="downloads.log"):
-        self.logger = logging.getLogger("LoomDownloader")
-        self.logger.setLevel(logging.INFO)
-        
-        handler = logging.FileHandler(log_file)
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        handler.setFormatter(formatter)
-        self.logger.addHandler(handler)
+# Log download activity
+log_download() {
+    local action="$1"
+    local video_id="$2"
+    local url="$3"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     
-    def log_download_start(self, video_id, url, quality):
-        self.logger.info(f"Starting download: {video_id} | Quality: {quality} | URL: {url}")
+    case "$action" in
+        "start")
+            echo "[$timestamp] START: $video_id | URL: $url" >> "$DOWNLOAD_LOG"
+            ;;
+        "complete")
+            local file_path="$4"
+            local file_size=$(du -h "$file_path" 2>/dev/null | cut -f1)
+            echo "[$timestamp] COMPLETE: $video_id | File: $file_path | Size: $file_size" >> "$DOWNLOAD_LOG"
+            ;;
+        "error")
+            local error_msg="$4"
+            echo "[$timestamp] ERROR: $video_id | Error: $error_msg" >> "$ERROR_LOG"
+            ;;
+    esac
+}
+
+# Monitor download statistics
+track_download_stats() {
+    local stats_file="$STATS_LOG"
     
-    def log_download_complete(self, video_id, file_path, file_size, duration):
-        self.logger.info(f"Download complete: {video_id} | File: {file_path} | Size: {file_size}MB | Duration: {duration}s")
+    # Count downloads by status
+    local total=$(grep -c "START:" "$DOWNLOAD_LOG" 2>/dev/null || echo 0)
+    local completed=$(grep -c "COMPLETE:" "$DOWNLOAD_LOG" 2>/dev/null || echo 0)
+    local failed=$(grep -c "ERROR:" "$ERROR_LOG" 2>/dev/null || echo 0)
     
-    def log_download_error(self, video_id, error_message):
-        self.logger.error(f"Download failed: {video_id} | Error: {error_message}")
+    # Calculate success rate
+    local success_rate=0
+    if [ $total -gt 0 ]; then
+        success_rate=$(( (completed * 100) / total ))
+    fi
     
-    def export_stats(self, output_file="download_stats.json"):
-        # Export download statistics for analysis
-        pass
+    echo "Download Statistics:" | tee -a "$stats_file"
+    echo "Total attempts: $total" | tee -a "$stats_file"
+    echo "Completed: $completed" | tee -a "$stats_file"
+    echo "Failed: $failed" | tee -a "$stats_file"
+    echo "Success rate: $success_rate%" | tee -a "$stats_file"
+}
+
+# Export download report
+generate_download_report() {
+    local output_file="${1:-download_report.txt}"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    
+    echo "Loom Download Report - Generated: $timestamp" > "$output_file"
+    echo "============================================" >> "$output_file"
+    echo "" >> "$output_file"
+    
+    track_download_stats >> "$output_file"
+    
+    echo "" >> "$output_file"
+    echo "Recent Downloads:" >> "$output_file"
+    tail -20 "$DOWNLOAD_LOG" >> "$output_file" 2>/dev/null
+    
+    echo "" >> "$output_file"
+    echo "Recent Errors:" >> "$output_file"
+    tail -10 "$ERROR_LOG" >> "$output_file" 2>/dev/null
+}
 ```
 
 ---
@@ -879,69 +1025,154 @@ class DownloadLogger:
 
 ### 9.1 Common Issues and Solutions
 
-#### 9.1.1 Authentication and Access Control
-```python
-def handle_auth_errors(url, headers=None):
-    """Handle authentication-related download failures"""
+#### 9.1.1 Authentication and Access Control Commands
+```bash
+# Test different referer headers
+test_referer_headers() {
+    local url="$1"
+    local referers=(
+        "https://www.loom.com/"
+        "https://loom.com/"
+        "https://app.loom.com/"
+        ""  # No referer
+    )
     
-    if headers is None:
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Referer': 'https://www.loom.com/',
-            'Accept': 'video/mp4,video/webm,video/*;q=0.9,*/*;q=0.8'
-        }
+    for referer in "${referers[@]}"; do
+        echo "Testing with referer: $referer"
+        if [ -n "$referer" ]; then
+            curl -I -H "Referer: $referer" "$url"
+        else
+            curl -I "$url"
+        fi
+        echo "---"
+    done
+}
+
+# Download with authentication headers
+download_with_auth() {
+    local url="$1"
+    local output_dir="${2:-./downloads}"
     
-    # Try with different referers
-    referers = [
-        'https://www.loom.com/',
-        'https://loom.com/',
-        'https://app.loom.com/',
-        None  # No referer
-    ]
+    # Try with various user agents and headers
+    local user_agents=(
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+        "Mozilla/5.0 (compatible; Loom-Downloader/1.0)"
+    )
     
-    for referer in referers:
-        test_headers = headers.copy()
-        if referer:
-            test_headers['Referer'] = referer
-        elif 'Referer' in test_headers:
-            del test_headers['Referer']
+    for ua in "${user_agents[@]}"; do
+        echo "Trying with User-Agent: $ua"
+        if yt-dlp --user-agent "$ua" --add-header "Referer:https://www.loom.com/" -o "$output_dir/%(title)s.%(ext)s" "$url"; then
+            echo "✓ Success with User-Agent: $ua"
+            return 0
+        fi
+    done
+    
+    echo "✗ All authentication methods failed"
+    return 1
+}
+
+# Check access permissions
+check_video_access() {
+    local video_url="$1"
+    
+    echo "Checking video accessibility..."
+    
+    # Extract video ID
+    local video_id=$(echo "$video_url" | grep -oE "[a-f0-9]{32}")
+    
+    if [ -z "$video_id" ]; then
+        echo "✗ Invalid video URL format"
+        return 1
+    fi
+    
+    # Test various endpoints
+    local test_urls=(
+        "https://www.loom.com/share/$video_id"
+        "https://www.loom.com/embed/$video_id"
+        "https://cdn.loom.com/sessions/$video_id/transcoded/mp4/720/video.mp4"
+    )
+    
+    for test_url in "${test_urls[@]}"; do
+        echo "Testing: $test_url"
+        local status=$(curl -o /dev/null -s -w "%{http_code}" "$test_url")
+        echo "Status: $status"
         
-        try:
-            response = requests.head(url, headers=test_headers, timeout=10)
-            if response.status_code == 200:
-                return test_headers
-        except:
-            continue
+        if [ "$status" = "200" ] || [ "$status" = "302" ]; then
+            echo "✓ Video accessible"
+            return 0
+        fi
+    done
     
-    return None
+    echo "✗ Video not accessible - may be private or deleted"
+    return 1
+}
 ```
 
-#### 9.1.2 Rate Limiting and Throttling
-```python
-import time
-from functools import wraps
-
-def rate_limited(max_calls_per_minute=60):
-    """Decorator to enforce rate limiting"""
-    min_interval = 60.0 / max_calls_per_minute
-    last_called = [0.0]
+#### 9.1.2 Rate Limiting and Throttling Commands
+```bash
+# Rate-limited download function
+rate_limited_download() {
+    local url="$1"
+    local rate_limit="${2:-1M}"
+    local calls_per_minute="${3:-30}"
     
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            elapsed = time.time() - last_called[0]
-            left_to_wait = min_interval - elapsed
-            if left_to_wait > 0:
-                time.sleep(left_to_wait)
-            ret = func(*args, **kwargs)
-            last_called[0] = time.time()
-            return ret
-        return wrapper
-    return decorator
+    # Calculate delay between calls
+    local delay_seconds=$((60 / calls_per_minute))
+    
+    echo "Rate limiting: $calls_per_minute calls/minute (${delay_seconds}s delay)"
+    
+    # Download with rate limiting
+    yt-dlp --limit-rate "$rate_limit" "$url"
+    
+    # Wait before next call
+    echo "Waiting ${delay_seconds} seconds before next download..."
+    sleep "$delay_seconds"
+}
 
-@rate_limited(max_calls_per_minute=30)
-def download_video(url):
-    # Your download logic here
+# Batch download with rate limiting
+batch_download_rate_limited() {
+    local url_file="$1"
+    local rate_limit="${2:-500K}"
+    local delay="${3:-2}"
+    
+    echo "Starting rate-limited batch download..."
+    echo "Rate limit: $rate_limit, Delay: ${delay}s between downloads"
+    
+    while IFS= read -r url; do
+        echo "Downloading: $url"
+        yt-dlp --limit-rate "$rate_limit" "$url"
+        
+        echo "Waiting ${delay} seconds..."
+        sleep "$delay"
+    done < "$url_file"
+}
+
+# Monitor and adjust download speed
+adaptive_rate_limiting() {
+    local url="$1"
+    local max_speed="2M"
+    local min_speed="500K"
+    
+    echo "Starting adaptive rate limiting..."
+    
+    # Try maximum speed first
+    if yt-dlp --limit-rate "$max_speed" "$url"; then
+        echo "✓ Download successful at maximum speed"
+    else
+        echo "Rate limited, retrying with reduced speed..."
+        sleep 30
+        
+        # Try reduced speed
+        if yt-dlp --limit-rate "$min_speed" "$url"; then
+            echo "✓ Download successful at reduced speed"
+        else
+            echo "✗ Download failed even with rate limiting"
+            return 1
+        fi
+    fi
+}
+```
     pass
 ```
 

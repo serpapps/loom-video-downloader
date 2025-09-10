@@ -2,7 +2,7 @@
 
 *A comprehensive research document analyzing Loom's video infrastructure, embed patterns, stream formats, and optimal download strategies using modern tools*
 
-**Authors**: Loom Video Downloader Development Team  
+**Authors**: SERP Apps
 **Date**: September 2024  
 **Version**: 1.0
 

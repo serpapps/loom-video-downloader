@@ -26,6 +26,7 @@ Easily download videos hosted by loom.com on any website in just a click for con
 - 💌 [Newsletter](https://serp.ly/@serp/email)
 - 🛒 [Shop](https://serp.ly/@serp/store)
 - 🎓 [Courses](https://serp.ly/@serp/courses)
+- 📚 [Technical Research Document](LOOM_RESEARCH.md) - Comprehensive analysis of Loom's streaming infrastructure and download methods
 
 ## Table of Contents
 - [Features](#features)

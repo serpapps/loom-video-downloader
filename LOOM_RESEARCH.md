@@ -124,50 +124,39 @@ https://cdn.loom.com/sessions/{VIDEO_ID}/transcoded/hls/{QUALITY}/index.m3u8
 
 ### 3.3 Detection Implementation
 
-#### JavaScript Detection (Browser Extension)
-```javascript
-function detectLoomVideos() {
-    const patterns = [
-        /https?:\/\/(?:www\.)?loom\.com\/(?:embed|share)\/([a-f0-9]{32})/g,
-        /https?:\/\/(?:www\.)?loom\.com\/v\/([a-f0-9]{32})/g
-    ];
-    
-    const urls = [];
-    const pageContent = document.documentElement.innerHTML;
-    
-    patterns.forEach(pattern => {
-        let match;
-        while ((match = pattern.exec(pageContent)) !== null) {
-            urls.push({
-                url: match[0],
-                videoId: match[1]
-            });
-        }
-    });
-    
-    return urls;
-}
+#### Command-line Detection Methods
+
+**Using grep for URL pattern extraction:**
+```bash
+# Extract Loom video IDs from HTML files
+grep -oE "https?://(?:www\.)?loom\.com/(?:embed|share)/([a-f0-9]{32})" input.html
+
+# Extract from multiple files
+find . -name "*.html" -exec grep -oE "loom\.com/(?:embed|share)/[a-f0-9]{32}" {} +
+
+# Extract video IDs only (without URL)
+grep -oE "loom\.com/(?:embed|share)/([a-f0-9]{32})" input.html | grep -oE "[a-f0-9]{32}"
 ```
 
-#### Python Detection (Server-side)
-```python
-import re
+**Using yt-dlp for detection and metadata extraction:**
+```bash
+# Test if URL contains downloadable video
+yt-dlp --dump-json "https://www.loom.com/share/{VIDEO_ID}" | jq '.id'
 
-def extract_loom_video_ids(content):
-    patterns = [
-        r'https?://(?:www\.)?loom\.com/(?:embed|share)/([a-f0-9]{32})',
-        r'https?://(?:www\.)?loom\.com/v/([a-f0-9]{32})',
-        r'data-video-id=["\']([a-f0-9]{32})["\']',
-        r'"videoId":\s*["\']([a-f0-9]{32})["\']'
-    ]
-    
-    video_ids = set()
-    for pattern in patterns:
-        matches = re.finditer(pattern, content, re.IGNORECASE)
-        for match in matches:
-            video_ids.add(match.group(1))
-    
-    return list(video_ids)
+# Extract all video information
+yt-dlp --dump-json "https://www.loom.com/share/{VIDEO_ID}" > video_info.json
+
+# Check if video is accessible
+yt-dlp --list-formats "https://www.loom.com/share/{VIDEO_ID}"
+```
+
+**Browser inspection commands:**
+```bash
+# Using curl to inspect embed pages
+curl -s "https://www.loom.com/embed/{VIDEO_ID}" | grep -oE "videoId.*[a-f0-9]{32}"
+
+# Inspect page headers for video information
+curl -I "https://www.loom.com/share/{VIDEO_ID}"
 ```
 
 ---
@@ -219,20 +208,30 @@ https://cdn.loom.com/sessions/{VIDEO_ID}/transcoded/hls/1080/index.m3u8
 ### 4.3 CDN Failover Strategy
 
 #### Primary → Secondary CDN
-```python
-def construct_urls(video_id, quality='1080'):
-    urls = []
-    
-    # Primary CDN
-    urls.append(f"https://cdn.loom.com/sessions/{video_id}/transcoded/mp4/{quality}/video.mp4")
-    
-    # CloudFront backup
-    urls.append(f"https://d2eebagvwr542c.cloudfront.net/sessions/{video_id}/transcoded/mp4/{quality}/video.mp4")
-    
-    # Fastly backup
-    urls.append(f"https://cdn-cf.loom.com/sessions/{video_id}/transcoded/mp4/{quality}/video.mp4")
-    
-    return urls
+
+The following URL patterns can be used with tools like wget or curl to attempt downloads from different CDN endpoints:
+
+```bash
+# Primary CDN
+https://cdn.loom.com/sessions/{VIDEO_ID}/transcoded/mp4/{QUALITY}/video.mp4
+
+# CloudFront backup  
+https://d2eebagvwr542c.cloudfront.net/sessions/{VIDEO_ID}/transcoded/mp4/{QUALITY}/video.mp4
+
+# Fastly backup
+https://cdn-cf.loom.com/sessions/{VIDEO_ID}/transcoded/mp4/{QUALITY}/video.mp4
+```
+
+**Command sequence for testing CDN availability:**
+```bash
+# Test primary CDN
+curl -I "https://cdn.loom.com/sessions/{VIDEO_ID}/transcoded/mp4/720/video.mp4"
+
+# Test CloudFront backup if primary fails
+curl -I "https://d2eebagvwr542c.cloudfront.net/sessions/{VIDEO_ID}/transcoded/mp4/720/video.mp4"
+
+# Test Fastly backup if both fail  
+curl -I "https://cdn-cf.loom.com/sessions/{VIDEO_ID}/transcoded/mp4/720/video.mp4"
 ```
 
 ---
@@ -318,73 +317,45 @@ yt-dlp --no-warnings --ignore-errors -a loom_urls.txt
 
 ### 5.4 Python Integration
 
-#### 5.4.1 Basic Python Usage
-```python
-import yt_dlp
+### 5.4 yt-dlp Integration Commands
 
-def download_loom_video(url, output_path='./downloads'):
-    ydl_opts = {
-        'outtmpl': f'{output_path}/%(title)s.%(ext)s',
-        'format': 'best[ext=mp4]'
-    }
-    
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        try:
-            ydl.download([url])
-            return True
-        except Exception as e:
-            print(f"Download failed: {e}")
-            return False
+#### 5.4.1 Video Information Extraction
+```bash
+# Extract video metadata only (no download)
+yt-dlp --dump-json "https://www.loom.com/share/{VIDEO_ID}"
+
+# Get available formats
+yt-dlp --list-formats "https://www.loom.com/share/{VIDEO_ID}"
+
+# Extract specific information fields
+yt-dlp --dump-json "https://www.loom.com/share/{VIDEO_ID}" | jq '.title, .duration, .uploader'
 ```
 
-#### 5.4.2 Advanced Python Implementation
-```python
-import yt_dlp
-import json
+#### 5.4.2 Download Commands with Quality Control
+```bash
+# Download best quality MP4
+yt-dlp -f "best[ext=mp4]" "https://www.loom.com/share/{VIDEO_ID}"
 
-class LoomDownloader:
-    def __init__(self, output_path='./downloads'):
-        self.output_path = output_path
-        self.ydl_opts = {
-            'outtmpl': f'{output_path}/%(title)s.%(ext)s',
-            'writeinfojson': True,
-            'writethumbnail': True,
-            'writesubtitles': True,
-            'subtitleslangs': ['en'],
-        }
-    
-    def get_video_info(self, url):
-        with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
-            try:
-                info = ydl.extract_info(url, download=False)
-                return info
-            except Exception as e:
-                print(f"Info extraction failed: {e}")
-                return None
-    
-    def download_best_quality(self, url):
-        opts = self.ydl_opts.copy()
-        opts['format'] = 'best[ext=mp4]'
-        
-        with yt_dlp.YoutubeDL(opts) as ydl:
-            try:
-                ydl.download([url])
-                return True
-            except Exception as e:
-                print(f"Download failed: {e}")
-                return False
-    
-    def download_specific_quality(self, url, max_height=720):
-        opts = self.ydl_opts.copy()
-        opts['format'] = f'best[height<={max_height}][ext=mp4]'
-        
-        with yt_dlp.YoutubeDL(opts) as ydl:
-            try:
-                ydl.download([url])
-                return True
-            except Exception as e:
-                print(f"Download failed: {e}")
-                return False
+# Download with specific quality limit
+yt-dlp -f "best[height<=720][ext=mp4]" "https://www.loom.com/share/{VIDEO_ID}"
+
+# Download with metadata and thumbnail
+yt-dlp --write-info-json --write-thumbnail --write-subs --sub-langs en "https://www.loom.com/share/{VIDEO_ID}"
+
+# Custom output filename template
+yt-dlp -o "%(uploader)s - %(title)s.%(ext)s" "https://www.loom.com/share/{VIDEO_ID}"
+```
+
+#### 5.4.3 Error Handling and Retry Commands
+```bash
+# Download with retries and rate limiting
+yt-dlp --retries 5 --limit-rate 1M "https://www.loom.com/share/{VIDEO_ID}"
+
+# Skip unavailable videos in batch
+yt-dlp --ignore-errors -a video_urls.txt
+
+# Continue incomplete downloads
+yt-dlp --continue "https://www.loom.com/share/{VIDEO_ID}"
 ```
 
 ---
@@ -605,56 +576,33 @@ download_with_fallback() {
 }
 ```
 
-### 7.4 Browser-based Solutions
+### 7.4 Browser-based Network Monitoring
 
-#### 7.4.1 Puppeteer/Playwright Automation
-```javascript
-const puppeteer = require('puppeteer');
+#### 7.4.1 Browser Developer Tools Approach
+```bash
+# Manual network monitoring commands for identifying video URLs
+# 1. Open browser developer tools (F12)
+# 2. Go to Network tab
+# 3. Filter by "mp4" or "m3u8"
+# 4. Play the Loom video
+# 5. Copy URLs from network requests
 
-async function downloadLoomVideo(videoUrl) {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    
-    // Intercept network requests to capture video URLs
-    const videoUrls = [];
-    await page.setRequestInterception(true);
-    
-    page.on('request', (request) => {
-        const url = request.url();
-        if (url.includes('.mp4') || url.includes('.m3u8')) {
-            videoUrls.push(url);
-        }
-        request.continue();
-    });
-    
-    await page.goto(videoUrl);
-    
-    // Wait for video to load
-    await page.waitForSelector('video', { timeout: 30000 });
-    
-    await browser.close();
-    return videoUrls;
-}
+# Alternative: Use browser's built-in network export
+# Export HAR file and extract video URLs:
+grep -oE "https://[^\"]*\.(mp4|m3u8)" network_export.har
 ```
 
-#### 7.4.2 Browser Extension Method
-```javascript
-// Content script for browser extension
-function interceptVideoRequests() {
-    const originalFetch = window.fetch;
-    const videoUrls = [];
-    
-    window.fetch = function(...args) {
-        const url = args[0];
-        if (typeof url === 'string' && (url.includes('.mp4') || url.includes('.m3u8'))) {
-            videoUrls.push(url);
-            console.log('Intercepted video URL:', url);
-        }
-        return originalFetch.apply(this, args);
-    };
-    
-    return videoUrls;
-}
+#### 7.4.2 Command-line Network Monitoring
+```bash
+# Monitor network traffic during video playback
+# Using netstat to monitor connections
+netstat -t -c | grep ":443"
+
+# Using tcpdump to capture network packets (requires root)
+tcpdump -i any host cdn.loom.com
+
+# Using ngrep to search for specific patterns
+ngrep -q -d any "\.mp4\|\.m3u8" host cdn.loom.com
 ```
 
 ### 7.5 Mobile App Considerations
@@ -680,62 +628,78 @@ xcrun simctl spawn booted log stream --predicate 'eventMessage contains "mp4"'
 
 ### 8.1 Primary Implementation Strategy
 
-#### 8.1.1 Hierarchical Approach
-```python
-class LoomVideoDownloader:
-    def __init__(self):
-        self.methods = [
-            self.try_yt_dlp,
-            self.try_direct_mp4,
-            self.try_hls_ffmpeg,
-            self.try_gallery_dl,
-            self.try_streamlink
-        ]
+#### 8.1.1 Hierarchical Command Approach
+Use a sequential approach with different tools, starting with the most reliable:
+
+```bash
+#!/bin/bash
+# Primary download strategy script
+
+download_loom_video() {
+    local video_url="$1"
+    local output_dir="${2:-./downloads}"
     
-    def download(self, video_url):
-        for method in self.methods:
-            try:
-                if method(video_url):
-                    return True
-            except Exception as e:
-                print(f"Method {method.__name__} failed: {e}")
-                continue
-        return False
+    echo "Attempting download of: $video_url"
     
-    def try_yt_dlp(self, url):
-        # Primary method using yt-dlp
-        pass
+    # Method 1: yt-dlp (primary)
+    if yt-dlp --ignore-errors -o "$output_dir/%(title)s.%(ext)s" "$video_url"; then
+        echo "✓ Success with yt-dlp"
+        return 0
+    fi
     
-    def try_direct_mp4(self, url):
-        # Direct MP4 download
-        pass
+    # Method 2: ffmpeg with HLS
+    video_id=$(echo "$video_url" | grep -oE "[a-f0-9]{32}")
+    if [ -n "$video_id" ]; then
+        hls_url="https://cdn.loom.com/sessions/$video_id/transcoded/hls/master.m3u8"
+        if ffmpeg -i "$hls_url" -c copy "$output_dir/loom_$video_id.mp4"; then
+            echo "✓ Success with ffmpeg"
+            return 0
+        fi
+    fi
     
-    def try_hls_ffmpeg(self, url):
-        # HLS stream with ffmpeg
-        pass
+    # Method 3: gallery-dl
+    if gallery-dl -d "$output_dir" "$video_url"; then
+        echo "✓ Success with gallery-dl"
+        return 0
+    fi
+    
+    # Method 4: streamlink
+    if streamlink "$video_url" best -o "$output_dir/loom_video.mp4"; then
+        echo "✓ Success with streamlink"
+        return 0
+    fi
+    
+    echo "✗ All methods failed"
+    return 1
+}
 ```
 
-#### 8.1.2 Quality Selection Logic
-```python
-def select_optimal_quality(available_qualities, preferences):
-    """
-    Select best quality based on user preferences and bandwidth
-    """
-    quality_hierarchy = ['1080p', '720p', '480p', '360p', '240p']
+#### 8.1.2 Quality Selection Commands
+```bash
+# Inspect available qualities first
+yt-dlp -F "https://www.loom.com/share/{VIDEO_ID}"
+
+# Download specific quality with fallback
+yt-dlp -f "best[height<=720]/best[height<=480]/best" "https://www.loom.com/share/{VIDEO_ID}"
+
+# Check file size before download
+yt-dlp --dump-json "https://www.loom.com/share/{VIDEO_ID}" | jq '.filesize_approx // .filesize'
+
+# Download with size limit
+yt-dlp -f "best[filesize<500M]" "https://www.loom.com/share/{VIDEO_ID}"
+
+# Quality selection script
+select_quality() {
+    local video_url="$1"
+    local max_quality="${2:-720}"
+    local max_size_mb="${3:-500}"
     
-    # Filter available qualities
-    available = [q for q in quality_hierarchy if q in available_qualities]
+    echo "Checking available formats..."
+    yt-dlp -F "$video_url"
     
-    # Apply user preferences
-    max_quality = preferences.get('max_quality', '1080p')
-    max_filesize = preferences.get('max_filesize_mb', 500)
-    
-    for quality in available:
-        estimated_size = estimate_filesize(quality, duration)
-        if estimated_size <= max_filesize and quality_rank(quality) <= quality_rank(max_quality):
-            return quality
-    
-    return available[-1] if available else None
+    echo "Downloading with quality limit: ${max_quality}p, size limit: ${max_size_mb}MB"
+    yt-dlp -f "best[height<=$max_quality][filesize<${max_size_mb}M]/best[height<=$max_quality]/best" "$video_url"
+}
 ```
 
 ### 8.2 Error Handling and Resilience

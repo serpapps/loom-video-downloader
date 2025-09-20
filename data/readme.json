@@ -35,7 +35,7 @@
     "Minimal Permissions",
     "Download Progress Bar"
   ],
-  "chrome_web_store_url": "https://chromewebstore.google.com/detail/loom-video-downloader/oopljffmklejoikiemiedeangcchfmlf?authuser=0&hl=en",
+  "chrome_web_store_url": null,
   "description": "Loom Video Downloader is a browser extension for Chrome & Firefox that allows you to easily download videos hosted by loom.com on any website in just a click for convenient offline viewing. Download loom videos from your account where the DL button was removed or download loom videos embedded on other web pages.",
   "product_video": "https://www.youtube.com/watch?v=bbkhxMpIH4w",
   "related_videos": [
@@ -56,12 +56,7 @@
     "Click the \"Download\" button",
     "Note: If the video auto-discovery isn't working, try clicking PLAY on the loom video (sometimes that helps)"
   ],
-  "faqs": [
-    {
-      "question": "Can I download locked videos?",
-      "answer": "If you have access to view the video then you will be able to download it."
-    }
-  ],
+  "faqs": "https://github.com/orgs/serpapps/discussions/categories/faq",
   "supported_operating_systems": [
     "windows",
     "macos",
@@ -80,8 +75,8 @@
     "MP4"
   ],
   "categories": [
-    "loom video downloader",
-    "download loom videos"
+    "video downloader",
+    "browser extension"
   ],
   "extraction_targets": [
     "loom.com"
@@ -91,6 +86,9 @@
   "related_articles": null,
   "related_gists": null,
   "funding_links_github": [
+    "devinschumacher"
+  ],
+  "funding_links_liberapay": [
     "devinschumacher"
   ],
   "funding_links_opencollective": [
@@ -106,8 +104,6 @@
     "loom video downloader",
     "loom downloader",
     "video downloader",
-    "browser extension",
-    "download loom videos"
-
+    "browser extension"
   ]
 }

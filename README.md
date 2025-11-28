@@ -1585,3 +1585,13 @@ The methodologies and tools documented in this research provide a robust foundat
 **Last Updated**: September 2024  
 **Research Version**: 1.0  
 **Next Review**: December 2024
+
+
+
+
+
+## Related
+
+- https://github.com/serpapps/loom-video-downloader
+- [Loom Video Downloader App (Browser Extension for Chrome & Firefox)](https://gist.github.com/devinschumacher/6eb8d933684f867e4db9739f6637cad7)
+- [How to Download Loom Videos: A Complete Step-by-Step Guide (With Real Examples & Command Cheatsheet)](https://gist.github.com/devinschumacher/b7be00df9d9809d0ea55663d88dc9d3c)

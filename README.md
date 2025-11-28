@@ -11,7 +11,6 @@ Easily download videos hosted by loom.com on any website in just a click for con
 - Download loom videos from your account where the DL button was removed
 - Download loom videos embedded on other web pages
 
-![loom video downloader](https://raw.githubusercontent.com/serpapps/loom-video-downloader/refs/heads/assets/images/loom-video-downloader.gif)
 
 ## 🔗 Links
 

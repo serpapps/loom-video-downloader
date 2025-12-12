@@ -175,6 +175,8 @@ No, I am not using Remote code. All code is packaged within the extension and do
 
 </details>
 
+<details>
+
 ---
 
 # Loom Video Download Research: Technical Analysis of Stream Patterns, CDNs, and Download Methods

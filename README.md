@@ -1,10 +1,4 @@
----
-title: Loom Video Downloader | How to Download Loom Videos Even if You Have a Free Account
-
----
-
-
-# Loom Video Downloader App (Browser Extension for Chrome & Firefox)
+# Loom Video Downloader App (Browser Extension for Chrome, Firefox, Edge, Brave, Arc, Safari)
 
 Easily download videos hosted by loom.com on any website in just a click for conenient offline viewing with this Loom video downloader browser extension.
 

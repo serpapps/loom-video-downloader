@@ -13,23 +13,6 @@ Easily download videos hosted by loom.com on any website in just a click for con
 - 🐛 Report bugs [here](https://github.com/serpapps/loom-video-downloader/issues)
 - 🆕 Request features [here](https://github.com/serpapps/loom-downloader/issues)
 
-### Resources
-
-- 💬 [Community](https://serp.ly/@serp/community)
-- 💌 [Newsletter](https://serp.ly/@serp/email)
-- 🛒 [Shop](https://serp.ly/@serp/store)
-- 🎓 [Courses](https://serp.ly/@serp/courses)
-- 📚 [Technical Research Document](LOOM_RESEARCH.md) - Comprehensive analysis of Loom's streaming infrastructure and download methods
-
-## Table of Contents
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Videos](#videos)
-- [Installation Instructions](#installation-instructions)
-  - [How to install \& setup (MAC)](#how-to-install--setup-mac)
-  - [How to use (MAC)](#how-to-use-mac)
-- [How to install \& setup (Windows)](#how-to-install--setup-windows)
-- [How to use (Windows)](#how-to-use-windows)
 
 ## Features
 

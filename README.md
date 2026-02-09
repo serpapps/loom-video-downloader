@@ -34,6 +34,12 @@ Easily download videos hosted by loom.com on any website in just a click for con
   
 ---
 
+
+## FAQS
+
+### Is it possible to download a private Loom video when the owner has disabled downloads?
+Yes!
+
 <!-- ## Screenshots -->
 
 ## Videos

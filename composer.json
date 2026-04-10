@@ -1,0 +1,24 @@
+{
+    "name": "serpapps/loom-video-downloader",
+    "type": "library",
+    "description": "Download Loom videos easily from any website for convenient offline viewing",
+    "keywords": [
+        "loom-video-downloader",
+        "loom-downloader",
+        "browser-extension",
+        "embed-video-downloader",
+        "video-downloader"
+    ],
+    "homepage": "https://github.com/serpapps/loom-video-downloader",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "SERP Apps",
+            "homepage": "https://github.com/serpapps",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    }
+}

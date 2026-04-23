@@ -4,7 +4,7 @@
   "description": "Loom Video Downloader helps teams and creators save recordings before links expire. It detects Loom share pages and embeds, supports password-protected links you are authorized to access, and converts recordings into MP4 files for offline review.",
   "input": "./INPUT_SCHEMA.json",
   "name": "loom-video-downloader",
-  "readme": "../README.md",
+  "readme": "../ACTOR.md",
   "title": "Loom Video Downloader",
   "version": "0.0"
 }

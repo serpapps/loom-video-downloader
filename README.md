@@ -1,4 +1,4 @@
-# Loom Downloader (Browser Extension)
+# Loom Video Downloader (Browser Extension)
 
 > Download Loom-hosted videos from watch pages and embeds directly in your browser for offline viewing.
 
@@ -12,7 +12,7 @@ Loom Downloader is a browser extension built for users who want a cleaner way to
 
 ## Links
 
-- :rocket: Get it here: [Loom Downloader](https://serp.ly/loom-video-downloader)
+- :rocket: Get it here: [Loom Downloader](https://serp.ly/loom-video-downloader?via=github)
 - :new: Latest release: [GitHub Releases](https://github.com/serpapps/loom-video-downloader/releases/latest)
 - :question: Help center: [SERP Help](https://help.serp.co/en/)
 - :beetle: Report bugs: [GitHub Issues](https://github.com/serpapps/loom-video-downloader/issues)
